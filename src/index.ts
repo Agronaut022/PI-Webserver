@@ -5,7 +5,7 @@ const app = express();
 const ping = require ("net-ping");
 const session = ping.createSession ();
 require('dotenv').config() // default port to listen
-const port = 8080;
+const port = 8081;
 // define a route handler for the default home page
 app.get( "/", ( req, res ) => {
     res.send( "Hello world!" );
@@ -15,11 +15,16 @@ app.get( "/", ( req, res ) => {
 
 } );
 
-app.get("/pc_an", (req, res) => {
-    wol(`${process.env.MAC_ADDRESS_OF_PC_TO_MANIPULATE}`).then(() => {
-        console.log('wol sent!')
-        res.send( "WOL send ")
-      })
+app.get("/pc_an", async (req, res) => {
+    try{
+        const success = await wol(`${process.env.MAC_ADDRESS_OF_PC_TO_MANIPULATE}`)
+        res.send("WOL send");
+    }
+    catch(err){
+        console.log(err);
+        res.send("WOL failed: " + err);
+    }
+
 
 })
 
