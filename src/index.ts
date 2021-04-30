@@ -1,11 +1,11 @@
 import express from "express"
 const wol = require('wakeonlan')
 const app = express();
-const port = process.env.port || 8080;
+
 const ping = require ("net-ping");
 const session = ping.createSession ();
 require('dotenv').config() // default port to listen
-
+const port = 8080;
 // define a route handler for the default home page
 app.get( "/", ( req, res ) => {
     res.send( "Hello world!" );
@@ -24,7 +24,7 @@ app.get("/pc_an", (req, res) => {
 })
 
 app.get("/pc_status", (req, res) => {
-    session.pingHost (`${process.env.IP_ADDRESS_OF_PC_TO_TURN_ON}`,(error: any, target: any) =>{
+    session.pingHost (`${process.env.IP_ADDRESS_OF_PC_TO_MANIPULATE}`,(error: any, target: any) =>{
         if (error){
             res.send("0");
             console.log(error);
