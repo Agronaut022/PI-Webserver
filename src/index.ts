@@ -78,7 +78,7 @@ app.get("/funkStatus", (reg,res) => {
         return;
     }
 
-    res.send(specifiedOutlet.status);
+    res.send(""+specifiedOutlet.status);
 })
 
 app.get("/funkOff", (reg,res) =>{
