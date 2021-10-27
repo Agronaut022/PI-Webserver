@@ -71,6 +71,16 @@ function sendOutletCommand(specifiedOutlet: Outlet){
       });
 }
 
+app.get("/funkStatus", (reg,res) => {
+    const specifiedOutlet = getOutlet(reg);
+    if(specifiedOutlet === undefined){
+        res.send("not found");
+        return;
+    }
+
+    res.send(specifiedOutlet.status);
+})
+
 app.get("/funkOff", (reg,res) =>{
 
 
